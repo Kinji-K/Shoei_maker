@@ -1,25 +1,50 @@
-import logo from './logo.svg';
+import Title from  "./components/Title";
+import Form from "./components/Form";
+import Results from "./components/Results";
+import axios from "axios";
+import {useState} from "react";
 import './App.css';
 
 function App() {
+  // stateの宣言
+  const [isbn,setIsbn] = useState("");
+  const [results,setResults] = useState({
+    title:"",
+    author:"",
+    publisher:"",
+    url:""
+  });
+
+  // OpenDB APIへのアクセス・情報取得
+  const getData = (e) => {
+    e.preventDefault();
+    axios.get(`https://api.openbd.jp/v1/get?isbn=${isbn}`)
+    .then(res => {
+      try{
+        setResults({
+          title: res.data[0].summary.title,
+          author: res.data[0].summary.author,
+          publisher: res.data[0].summary.publisher,
+          url:res.data[0].summary.cover
+        });
+      } catch {
+        setResults({
+          title: "お探しの書籍は見つかりません",
+          author: "",
+          publisher: "",
+          url:""
+        });        
+      }
+  })
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Title />
+      <Form setIsbn={setIsbn} getData={getData}/>
+      <Results results={results}/>
     </div>
   );
-}
+};
 
 export default App;
