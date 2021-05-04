@@ -1,6 +1,7 @@
 import Title from  "./components/Title";
 import Form from "./components/Form";
 import Results from "./components/Results";
+import Header from "./components/Header";
 import axios from "axios";
 import {useState} from "react";
 import './App.css';
@@ -40,6 +41,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header />
       <Title />
       <Form setIsbn={setIsbn} getData={getData}/>
       <Results results={results}/>
