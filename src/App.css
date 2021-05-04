@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+body {
+  background-color: #E5FFD6;
+}
+
 h1{
   margin-top: 0.5rem;
 }
@@ -22,6 +26,25 @@ Button {
 
 .card {
   margin: 1rem 1rem;
+  border-color: #72CC3D;
+  background-color: #FCFCFC;
+}
+
+.footer {
+  border-color: #72CC3D;
+  background-color: #054D20;
+  color: #FCFCFC;
+  padding-top: 1rem;
+}
+
+.cover {
+  margin-bottom: 1rem;
+  border-color: #000000;
+}
+
+.homepage {
+  color: #FCFCFC;
+  text-decoration: underline;
 }
 
 @media (prefers-reduced-motion: no-preference) {

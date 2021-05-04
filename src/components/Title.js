@@ -3,7 +3,9 @@ import Card from "react-bootstrap/Card"
 const Title = () => {
   return(
     <div>
-      <h1>書影メーカー</h1>
+      <Card className="card">
+        <h1>書影メーカー</h1>
+      </Card>
       <Card className="card">
         <Card.Body>
           <h2>本アプリの説明</h2>
