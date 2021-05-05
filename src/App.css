@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 150px;
+  box-sizing: border-box;
 }
 
 .App-logo {
@@ -35,6 +39,9 @@ Button {
   background-color: #054D20;
   color: #FCFCFC;
   padding-top: 1rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .cover {
