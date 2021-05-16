@@ -1,19 +1,23 @@
 import Button from 'react-bootstrap/Button';
 import {useHistory} from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 const Form = (props) => {
-const hist = useHistory();
-const handleLink = path => hist.push(path);
+  const history = useHistory();
+
+  const ClickAction = (e) =>{
+    const path = `/book/${props.isbn}`;
+    history.push({
+      pathname: path
+    });
+  }
 
   return (
     <form>
       <input type="text" name="isbn" placeholder="ISBN 978-4-xxxx-xxxx-x" onChange={e => props.setIsbn(e.target.value)}/>
-      <Button type="submit" onClick={ () => {
-        handleLink(props.isbn);
-        }
-        }>書影作成</Button>
+      <Button type="submit" onClick={ClickAction}>書影作成</Button>
     </form>
   );
 };
 
-export default Form;
+export default withRouter(Form);
