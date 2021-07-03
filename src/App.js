@@ -24,13 +24,10 @@ function App() {
     axios.get(`https://api.openbd.jp/v1/get?isbn=${isbn_code}`)
     .then(res => {
       try{
-        const src_strings = res.data[0].summary.cover.split("/")
-        const cover_file = "/" + src_strings[src_strings.length - 1];
-
-        fetch(cover_file)
+        fetch(res.data[0].summary.cover)
         .then(response => {
-        //setBlob(response.blob())
-        response.blob().then(res2 =>{
+          console.log(response)
+          response.blob().then(res2 =>{
           console.log(res2)
           setBlob(URL.createObjectURL(res2));
           })
@@ -40,7 +37,7 @@ function App() {
           title: res.data[0].summary.title,
           author: res.data[0].summary.author,
           publisher: res.data[0].summary.publisher,
-          url: cover_file
+          url: res.data[0].summary.cover
         });
       } catch {
         setResult({
