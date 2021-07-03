@@ -10,6 +10,8 @@ import './App.css';
 
 function App() {
   const [isbn,setIsbn] = useState("");
+  const [blob,setBlob] = useState(null);
+  const [filename, setFilename] = useState("")
   const [result,setResult] = useState({
     title: "",
     author: "",
@@ -22,11 +24,21 @@ function App() {
     axios.get(`https://api.openbd.jp/v1/get?isbn=${isbn_code}`)
     .then(res => {
       try{
+
+        fetch(res.data[0].summary.cover)
+        .then(response => {
+        console.log(response)
+        response.blob().then(res2 =>{
+          console.log(res2)
+          setBlob(URL.createObjectURL(res2));
+          })
+        })
+
         setResult({
           title: res.data[0].summary.title,
           author: res.data[0].summary.author,
           publisher: res.data[0].summary.publisher,
-          url:res.data[0].summary.cover
+          url: res.data[0].summary.cover
         });
       } catch {
         setResult({
@@ -36,6 +48,7 @@ function App() {
           url:""
         });        
       }
+
   })
   };
 
@@ -50,7 +63,7 @@ function App() {
           </Route>
           <Route path="/book/:isbn">
             <Form  isbn={isbn} setIsbn={setIsbn}/>
-            <Results result={result} getData={getData}/>
+            <Results result={result} blob={blob} setFilename={setFilename} filename={filename} getData={getData}/>
           </Route>
         </Switch>
       </Router>
