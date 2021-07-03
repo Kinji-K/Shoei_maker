@@ -1,11 +1,16 @@
 import Card from "react-bootstrap/Card";
+import Button from 'react-bootstrap/Button';
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import Sns from './Sns';
 
 const Results = (props) => {
   const params = useParams();
-  useEffect(() => props.getData(params.isbn),[]);
+  useEffect(() => {
+    props.getData(params.isbn);
+    props.setFilename(params.isbn.replace(/-/g, '') + ".jpg")
+  }
+    ,[]);
 
   return(
     <div>
@@ -17,7 +22,13 @@ const Results = (props) => {
           <Sns />
         </Card.Body>
       </Card>
-      {props.result.url && <Card><Card.Body><img src={props.result.url} className="cover" width="300" alt="書影"/></Card.Body></Card>}
+      {props.result.url && 
+      <Card>
+        <Card.Body>
+        <Button variant="secondary" href={props.blob} download={props.filename}>画像をダウンロード</Button><br/><br/>
+          <img src={props.result.url} className="cover" width="300" alt="書影"/>
+        </Card.Body>
+      </Card>}
     </div>
   );
 };
