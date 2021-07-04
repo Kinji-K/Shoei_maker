@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "shoei-maker"
+    "default": "shoei-maker",
+    "production": "shoei-maker",
+    "dev": "shoei-maker-dev"
   }
 }
