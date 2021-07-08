@@ -1,8 +1,6 @@
 import Title from  "./components/Title";
 import Form from "./components/Form";
 import Results from "./components/Results";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import axios from "axios";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {useState} from "react";
@@ -53,7 +51,6 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
       <Title />
       <Router>
         <Switch>
@@ -66,7 +63,6 @@ function App() {
           </Route>
         </Switch>
       </Router>
-      <Footer />
     </div>
   );
 };
