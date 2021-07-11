@@ -10,6 +10,7 @@ function App() {
   const [isbn,setIsbn] = useState("");
   const [blob,setBlob] = useState(null);
   const [filename, setFilename] = useState("")
+  const [isloading, setIsloading] = useState(true)
   const [result,setResult] = useState({
     title: "",
     author: "",
@@ -19,6 +20,7 @@ function App() {
 
   // OpenDB APIへのアクセス・情報取得
   const getData = (isbn_code) => {
+    console.log(isloading);
     axios.get(`https://api.openbd.jp/v1/get?isbn=${isbn_code}`)
     .then(res => {
       try{
@@ -45,8 +47,7 @@ function App() {
           url:""
         });        
       }
-
-  })
+    })
   };
 
   return (
@@ -59,7 +60,7 @@ function App() {
           </Route>
           <Route path="/book/:isbn">
             <Form  isbn={isbn} setIsbn={setIsbn}/>
-            <Results result={result} blob={blob} setFilename={setFilename} filename={filename} getData={getData}/>
+            <Results setIsloading={setIsloading} isloading={isloading} result={result} blob={blob} setFilename={setFilename} filename={filename} getData={getData}/>
           </Route>
         </Switch>
       </Router>

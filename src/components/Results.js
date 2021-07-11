@@ -1,19 +1,30 @@
 import Card from "react-bootstrap/Card";
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner'
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import Sns from './Sns';
 
 const Results = (props) => {
   const params = useParams();
+  
   useEffect(() => {
+    props.setIsloading(true);
     props.getData(params.isbn);
-    props.setFilename(params.isbn.replace(/-/g, '') + ".jpg")
+    props.setFilename(params.isbn.replace(/-/g, '') + ".jpg");
+    props.setIsloading(false);
   }
-    ,[]);
+    ,[params.isbn]);
 
   return(
-    <div>
+    <>
+      {props.isloading ?
+        <div>
+          <br/>
+          <Spinner animation="border" />
+        </div>
+      :
+      <div>
       <Card>
         <Card.Body>
           {props.result.title && <p>タイトル：{props.result.title}</p>}
@@ -29,7 +40,9 @@ const Results = (props) => {
           <img src={props.result.url} className="cover" width="300" alt="書影"/>
         </Card.Body>
       </Card>}
-    </div>
+      </div>
+      }
+   </>
   );
 };
 
